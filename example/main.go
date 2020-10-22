@@ -15,6 +15,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer db.Close()
 	// ip v4
 	recV4, err := db.GetRecord(ipv4)
 	if err != nil {

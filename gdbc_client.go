@@ -35,6 +35,11 @@ func (client *gdbcClient) GetRecord(ip net.IP) (*Leaf, error) {
 	return client.getRecordV6(ip)
 }
 
+// Close - method for closing db
+func (client *gdbcClient) Close() {
+	client.file.close()
+}
+
 // ---------------- PRIVATE BLOCK ----------------
 
 func newMeta(file *dbStream) (*Meta, error) {
