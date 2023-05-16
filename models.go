@@ -30,7 +30,6 @@ type Meta struct {
 // Leaf - model for database output structure
 type Leaf struct {
 	CountryCode string // 2 letter country code
-	Country     string // country name
 	Region      string // region name
 	City        string // city
 	ISP         string // ISP
