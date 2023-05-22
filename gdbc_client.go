@@ -12,8 +12,17 @@ import (
 
 // ---------------- PUBLIC BLOCK ----------------
 
+type GeoDb interface {
+	Close()
+	GetRecord(ip net.IP) (*Leaf, error)
+	StructVersion() uint32
+	BuildVersion() uint32
+	CountV4() uint32
+	CountV6() uint32
+}
+
 // NewGDBCClient - factory method for db client
-func NewGDBCClient(filename string) (*gdbcClient, error) {
+func NewGDBCClient(filename string) (GeoDb, error) {
 	var err error
 	client := &gdbcClient{}
 	client.file, err = newDBStream(filename, true)
@@ -38,6 +47,22 @@ func (client *gdbcClient) GetRecord(ip net.IP) (*Leaf, error) {
 // Close - method for closing db
 func (client *gdbcClient) Close() {
 	client.file.close()
+}
+
+func (client *gdbcClient) StructVersion() uint32 {
+	return client.Meta.StructVersion
+}
+
+func (client *gdbcClient) BuildVersion() uint32 {
+	return client.Meta.BuildVersion
+}
+
+func (client *gdbcClient) CountV4() uint32 {
+	return client.Meta.CountV4
+}
+
+func (client *gdbcClient) CountV6() uint32 {
+	return client.Meta.CountV6
 }
 
 // ---------------- PRIVATE BLOCK ----------------
