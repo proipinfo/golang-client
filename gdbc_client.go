@@ -22,7 +22,7 @@ type GeoDb interface {
 }
 
 // NewGDBCClient - factory method for db client
-func NewGDBCClient(filename string) (*gdbcClient, error) {
+func NewGDBCClient(filename string) (GeoDb, error) {
 	var err error
 	client := &gdbcClient{}
 	client.file, err = newDBStream(filename, true)
